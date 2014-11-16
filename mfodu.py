@@ -15,9 +15,14 @@ def OneFolderUp(path):
     split.pop(-2)
     return '\\'.join(split)
 
-path = sys.argv[1]
+filename = sys.argv[1]
+try:
+    path = os.path.dirname(os.path.abspath(__file__)) + "\\" + filename
+except NameError: 
+    path = os.path.dirname(os.path.abspath(sys.argv[0]))
+    
 if IsAtRoot(path):
     sys.exit(0)
 else:
     newpath = OneFolderUp(path)
-    os.rename(path, OneFolderUp(path))
+    os.rename(path, newpath)
